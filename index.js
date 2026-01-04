@@ -1,24 +1,33 @@
-const { Client, GatewayIntentBits } = require('discord.js');
-require('dotenv').config();  // legge TOKEN da .env o variabili ambiente
+// index.js
+import 'dotenv/config';
+import { Client, GatewayIntentBits } from 'discord.js';
 
+// Legge il token dal file .env
+const TOKEN = process.env.DISCORD_TOKEN;
+
+if (!TOKEN) {
+  console.error('❌ Errore: devi mettere DISCORD_TOKEN nel file .env');
+  process.exit(1);
+}
+
+// Crea il client Discord
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
 
+// Quando il bot è pronto
 client.once('ready', () => {
-  console.log(`Bot online come ${client.user.tag}!`);
+  console.log(`✅ Bot pronto! Loggato come ${client.user.tag}`);
 });
 
-client.on('messageCreate', message => {
+// Esempio di comando: risponde "Ciao!" a "!ciao"
+client.on('messageCreate', (message) => {
   if (message.author.bot) return;
-  if (message.content.toLowerCase() === 'ciao') {
-    message.reply('Ciao! 👋');
+
+  if (message.content === '!ciao') {
+    message.channel.send('Ciao!');
   }
 });
 
-client.login(process.env.TOKEN);
-
-  setInterval(checkBattle, CHECK_INTERVAL);
-});
-
-client.login(DISCORD_TOKEN);
+// Avvia il bot
+client.login(TOKEN);
