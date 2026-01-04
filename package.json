@@ -1,18 +1,13 @@
 {
-  "type": "module",
-  "name": "clash-dsicord-bot",
+  "name": "clash-discord-bot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "discord.js": "^14.25.1",
-    "node-fetch": "^3.3.2"
+    "discord.js": "^15.0.0",
+    "dotenv": "^16.0.0"
   }
 }
