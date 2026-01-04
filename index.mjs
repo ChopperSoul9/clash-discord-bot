@@ -1,4 +1,4 @@
-// index.mjs
+// index.mjs 
 import { Client, GatewayIntentBits } from 'discord.js';
 import dotenv from 'dotenv';
 
