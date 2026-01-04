@@ -1,28 +1,27 @@
-// index.mjs 
+// index.mjs
+import 'dotenv/config';  // legge il token da .env
 import { Client, GatewayIntentBits } from 'discord.js';
-import dotenv from 'dotenv';
 
-// Carica le variabili d'ambiente dal file .env (non necessario su Railway se usi ENV vars)
-dotenv.config();
-
-// Crea il client Discord con gli intent necessari
+// Crea il client con i soli intenti necessari
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
+  intents: [
+    GatewayIntentBits.Guilds,         // necessario per comandi slash, eventi dei server
+    GatewayIntentBits.GuildMessages,  // necessario se vuoi leggere i messaggi
+    GatewayIntentBits.MessageContent  // necessario se vuoi leggere il contenuto dei messaggi
+  ]
 });
 
 // Quando il bot è pronto
-client.on('ready', () => {
-  console.log(`✅ Bot online! Logged in as ${client.user.tag}`);
+client.once('ready', () => {
+  console.log(`Bot online come ${client.user.tag}`);
 });
 
-// Quando riceve un messaggio
+// Esempio: rispondere ai messaggi "ping"
 client.on('messageCreate', (message) => {
-  if (message.author.bot) return; // Ignora altri bot
-  if (message.content === '!ping') {
+  if (message.content.toLowerCase() === 'ping') {
     message.reply('Pong!');
   }
 });
 
-// Login del bot usando il token da variabile d'ambiente
-client.login(process.env.BOT_TOKEN);
-
+// Login con il token dal file .env
+client.login(process.env.TOKEN);
